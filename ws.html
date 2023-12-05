@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script>
+        const webSocket = new WebSocket("ws://localhost:8080/ws?username=admin");
+
+        webSocket.onopen = function (event) {
+            console.log("WebSocket connection opened.");
+        };
+
+        webSocket.onmessage = function (event) {
+            console.log("Received message: " + event.data);
+            showMessage(event.data); // Call the function to display the received message
+        };
+
+        webSocket.onclose = function (event) {
+            console.log("WebSocket connection closed.");
+        };
+
+        function sendMessage() {
+            let message = document.getElementById("messageInput").value;
+            webSocket.send(message);
+        }
+
+        function showMessage(message) {
+            window.alert("Received message: " + message);
+        }
+    </script>
+</head>
+<body>
+<h1>WebSocket Test</h1>
+<input type="text" id="messageInput" placeholder="Type a message">
+<button onclick="sendMessage()">Send</button>
+</body>
+</html>
